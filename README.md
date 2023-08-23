@@ -1,5 +1,5 @@
 # ZooSegNet
-
+# BlogPost
 BlogPost: [click here](https://mayankanand111.github.io/Mayank_Portfolio/post/project-2/)
 
 # Run your Python script with the required arguments
