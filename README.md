@@ -2,6 +2,11 @@
 # BlogPost
 BlogPost: [click here](https://mayankanand111.github.io/Mayank_Portfolio/post/project-2/)
 
+# Commands to run
+chmod +x setup_and_run.sh
+
+./setup_and_run.sh
+
 # Run your Python script with the required arguments
  chkpoint1- the location where model trained with the balanced dataset is saved or Model_v2_balanced_binary_best
  
