@@ -22,7 +22,7 @@ chmod +x setup_and_run.sh
  
  with_cuda - Pass only when training on GPU 
 
-# Run your Python script with the required arguments
+# Run your bash script with following required arguments
 python /home/ec2-user/SageMaker/FinalDemo/PredEnsembleSegmentationClassifier.py \
     --chkpoint1 "/home/ec2-user/SageMaker/FinalDemo/Model_v2_balanced_binary_best.pth.tar" \
     --chkpoint2 "/home/ec2-user/SageMaker/FinalDemo/Model_v2_binary_best.pth.tar" \
