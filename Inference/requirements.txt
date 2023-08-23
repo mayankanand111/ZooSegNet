@@ -1,0 +1,13 @@
+torch
+torchvision
+pandas
+numpy
+matplotlib
+PILLOW
+tqdm
+tensorboard
+scikit-learn
+argparse
+opencv-python
+ipython
+clear

@@ -114,8 +114,8 @@ class Trainer:
     def predict(self, threshold=0.5):
 
         try:
-            checkpoint1 = torch.load(self.chkpt1)
-            checkpoint2 = torch.load(self.chkpt2)
+            checkpoint1 = torch.load(self.chkpt1, map_location=self.device)
+            checkpoint2 = torch.load(self.chkpt2, map_location=self.device)
             model1 = Model_v2(self.dropout)
             model1.load_state_dict(checkpoint1['state_dict'])
             model1.to(self.device)
@@ -362,15 +362,17 @@ class UNet(nn.Module):
 
         return output
 
-def load_model(directory, model):
-    checkpoint = torch.load(directory)
+def load_model(directory, model, device):
+    checkpoint = torch.load(directory, map_location=device)
     model.load_state_dict(checkpoint['model_state_dict'])
+    model.to(device)  # Ensure model is on the correct device
     return model
+
 
 def test_model(model, test_loader, save_dir,checkpoint_dir,with_cuda):
     device = torch.device("cuda:0" if with_cuda else "cpu")
     try:
-        model = load_model(checkpoint_dir, model)
+        model = load_model(checkpoint_dir, model,device=device)
         model.eval()
         print("Model/s loaded successfully.")
     except Exception as e:
@@ -421,6 +423,9 @@ def test_model(model, test_loader, save_dir,checkpoint_dir,with_cuda):
                 plt.close()
 
 def main(args):
+    use_cuda = args.with_cuda and torch.cuda.is_available()
+    device = torch.device("cuda:0" if use_cuda else "cpu")
+    print("Device is: ",device)
     if args.is_onlysegmentation:
         print("Skipping classifiction")
         print("Grerating segmentations...")
@@ -438,7 +443,7 @@ def main(args):
         test_dataset = CustomDataset(image_files, segmented_data_dir, transform)
         test_loader = DataLoader(test_dataset, batch_size=16, shuffle=True)
         model_segment = UNet(input_channels=3, start_neurons=16, dropout_rate=0.1).to(device)
-        test_model(model_segment, test_loader, segmented_save_dir, checkpoint_dir=args.chkpoint_segmentation,with_cuda=True)
+        test_model(model_segment, test_loader, segmented_save_dir, checkpoint_dir=args.chkpoint_segmentation,with_cuda=use_cuda)
         print("Segmentation Done")
         print("Script ran successfully")
     else:
@@ -471,7 +476,7 @@ def main(args):
         trainer = Trainer(
             test_data_loader=test_loader,
             save_dir=save_dir,
-            with_cuda=True,
+            with_cuda=use_cuda,
             tensorboard_dir=tensorboard_dir,
             chkpt1= chkpt1,
             chkpt2=chkpt2,
@@ -509,6 +514,7 @@ if __name__ == "__main__":
     parser.add_argument('--segmented_save_dir', type=str, help='Path to saved segmented predictions', required=True)
     parser.add_argument('--segmented_data_dir', type=str, help='Path to saved detected predictions', required=True)
     parser.add_argument('--tensorboard_dir', type=str, help='Path to save tensorboard dir', required=True)
+    parser.add_argument('--with_cuda', action='store_true', help='Use CUDA if available')
     parser.add_argument('--is_onlysegmentation', action='store_true', help='want only segmentation result')
     args = parser.parse_args()
     main(args)
