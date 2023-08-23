@@ -499,7 +499,7 @@ def main(args):
         test_dataset = CustomDataset(image_files, segmented_data_dir, transform)
         test_loader = DataLoader(test_dataset, batch_size=16, shuffle=True)
         model_segment = UNet(input_channels=3, start_neurons=16, dropout_rate=0.1).to(device)
-        test_model(model_segment, test_loader, segmented_save_dir, checkpoint_dir=args.chkpoint_segmentation,with_cuda=True)
+        test_model(model_segment, test_loader, segmented_save_dir, checkpoint_dir=args.chkpoint_segmentation,with_cuda=use_cuda)
         print("Segmentation Done")
         print("Script ran successfully")
 
