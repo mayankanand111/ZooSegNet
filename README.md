@@ -3,13 +3,13 @@
 BlogPost: [click here](https://mayankanand111.github.io/Mayank_Portfolio/post/project-2/)
 
 # Run your Python script with the required arguments
-# chkpoint1- location where model trained with the balanced dataset is saved or Model_v2_balanced_binary_best
-# chkpoint2- location where model trained with all dataset is saved or Model_v2_binary_best
-# image_folder - Location where dataset is located or checkpoint_2023-08-03_01-35-29
-# save_dir - the location where you want to save the predictions
-# tensorboard_dir - location where you want to save tensorboard directory
-# is_onlysegmentation - Pass only if you want segmentation
-# with_cuda - Pass only when traiing on GPU 
+## chkpoint1- location where model trained with the balanced dataset is saved or Model_v2_balanced_binary_best
+## chkpoint2- location where model trained with all dataset is saved or Model_v2_binary_best
+## image_folder - Location where dataset is located or checkpoint_2023-08-03_01-35-29
+## save_dir - the location where you want to save the predictions
+## tensorboard_dir - location where you want to save tensorboard directory
+## is_onlysegmentation - Pass only if you want segmentation
+## with_cuda - Pass only when traiing on GPU 
 
 # Run your Python script with the required arguments
 python /home/ec2-user/SageMaker/FinalDemo/PredEnsembleSegmentationClassifier.py \
